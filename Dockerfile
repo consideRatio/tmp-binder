@@ -146,12 +146,9 @@ RUN set -ex \
 RUN set -ex \
  && sudo /opt/conda/bin/pip install scikit-learn boto3 xarray ipyleaflet fsspec xlrd openpyxl netcdf4 requests aiohttp h5netcdf
 
-# Helps us ensure logs are emitted 
-ENV PYTHONUNBUFFERED=1
+# Make sure the contents of our repo are in ${HOME}
+RUN mkdir -p ${HOME}
+COPY --chown=ops:ops . ${HOME}
 
-
-# # Make sure the contents of our repo are in ${HOME}
-# RUN mkdir -p ${HOME}
-# COPY . ${HOME}
-# RUN set -ex \
-#  && sudo chown -R ${USER} ${HOME}
+# Remove the user's sudo rights to make it a BinderHub compatible image.
+RUN sudo rm /etc/sudoers.d/90-cloudimg-ops
