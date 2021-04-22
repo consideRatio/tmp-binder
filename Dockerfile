@@ -146,6 +146,10 @@ RUN set -ex \
 RUN set -ex \
  && sudo /opt/conda/bin/pip install scikit-learn boto3 xarray ipyleaflet fsspec xlrd openpyxl netcdf4 requests aiohttp h5netcdf
 
+# Helps us ensure logs are emitted 
+ENV PYTHONUNBUFFERED=1
+
+
 # # Make sure the contents of our repo are in ${HOME}
 # RUN mkdir -p ${HOME}
 # COPY . ${HOME}
